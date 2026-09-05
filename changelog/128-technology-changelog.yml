@@ -1,0 +1,123 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.128technology.com/docs/release_notes_128t_7.2
+docs: https://docs.128technology.com/docs/about_releases
+note: >-
+  128 Technology publishes a per-release-stream release-notes page rather than one running
+  changelog. Every GA and out-of-support stream from 4.0 through 7.2 has its own dated page, plus
+  separate streams for the installer, BYOL cloud images and the WAN Assurance plugin. Recent
+  window only — the full history is on the release-notes pages themselves.
+scheme:
+  style: semantic-versioning-with-milestone
+  format: name-X.Y.Z-build-milestone
+  docs: https://docs.128technology.com/docs/about_releases
+  description: >-
+    X is a major release (features, and backwards compatibility MAY break); Y is a minor release
+    with non-breaking additions only; Z is bug fixes. -build is the number of release-candidate
+    iterations and never increments after release. -milestone is one of r1, r2, sts or lts.
+current_version: 7.2.1-1r1
+current_stream: '7.2'
+streams:
+- version: '7.2'
+  initial_ga: 7.2.0-29r1
+  first_shipped: '2026-07-01'
+  latest_ga: 7.2.1-1r1
+  support: LTS
+  end_of_engineering: '2029-01-01'
+  end_of_support: '2029-07-01'
+  notes: https://docs.128technology.com/docs/release_notes_128t_7.2
+- version: '7.1'
+  initial_ga: 7.1.0-50r1
+  first_shipped: '2025-12-04'
+  latest_ga: 7.1.6-7-sts
+  support: STS
+  end_of_engineering: '2027-03-10'
+  end_of_support: '2027-09-10'
+  notes: https://docs.128technology.com/docs/release_notes_128t_7.1
+- version: '7.0'
+  initial_ga: 7.0.1-1r1
+  first_shipped: '2025-10-14'
+  latest_ga: 7.0.5-14-lts
+  support: LTS
+  end_of_engineering: '2028-08-24'
+  end_of_support: '2029-02-24'
+  notes: https://docs.128technology.com/docs/release_notes_128t_7.0
+- version: '6.3'
+  initial_ga: 6.3.0-107r1
+  first_shipped: '2024-09-30'
+  latest_ga: 6.3.7-6-sts
+  support: STS
+  end_of_engineering: '2026-05-06'
+  end_of_support: '2026-11-06'
+  notes: https://docs.128technology.com/docs/release_notes_128t_6.3
+- version: '6.2'
+  initial_ga: 6.2.0-39r1
+  first_shipped: '2023-11-16'
+  latest_ga: 6.2.14-3-lts
+  support: LTS
+  end_of_engineering: '2026-09-06'
+  end_of_support: '2027-03-06'
+  notes: https://docs.128technology.com/docs/release_notes_128t_6.2
+entries:
+- version: 7.2.1-1r1
+  date: '2026-07-14'
+  breaking: false
+  additions: []
+  fixes:
+  - >-
+    I95-65610 SSR400/SSR440 routers not connecting to the Conductor after upgrade — runtime RPM
+    upgrades of the minion-connector failed to start due to missing IMA file signatures.
+  source: https://docs.128technology.com/docs/release_notes_128t_7.2
+- version: 7.2.0-29r1
+  date: '2026-07-01'
+  breaking: false
+  additions:
+  - I95-25150 AES-GCM encryption replaces AES-CBC + HMAC-SHA for SVR peer paths.
+  - I95-55344 SSL Forward Proxy for HTTPS decrypt/re-encrypt with IDP and AV scanning.
+  - I95-60371 Adaptive PMTU change handling for long-lived sessions.
+  - I95-61066 Simplified interface naming for cloud images (Linux names instead of PCI/VMBus UUIDs).
+  - I95-64149 Enhanced security key-management audit events for all success-path PKI operations.
+  - I95-64645 Peering identity may be carried in a SAN URI extension instead of the Common Name.
+  - I95-64845 Additional audit events and logs for the certificate APIs.
+  - I95-34472 Waypoint pool exhaustion monitoring via a new `show waypoints` command.
+  - I95-61467 `show bgp` filtered-routes option exposes prefixes suppressed by inbound policy.
+  - I95-63012 AppID scale optimization.
+  - I95-64435 SSR400/SSR440 migrated to a FIPS-compliant EEPROM encryption scheme.
+  - WAN-3182 In-band management inbound apps (ICMP, SNMP) from selected user networks.
+  fixes:
+  - 89 CVEs resolved in this release, enumerated on the release-notes page.
+  - I95-61693 DHCP INFORM responses now include the requested options.
+  - I95-63547 Time-based HMAC peering failed when peer clock delta exceeded 2 seconds.
+  source: https://docs.128technology.com/docs/release_notes_128t_7.2
+- version: 7.1.6-7-sts
+  date: '2026-07-15'
+  breaking: false
+  additions:
+  - I95-62868 Multicast failover optimizations and PIM Graceful Restart convergence improvements.
+  - I95-63012 AppID scale optimization for WAN deployments.
+  fixes:
+  - 59 CVEs resolved in this release, enumerated on the release-notes page.
+  - I95-63951 BGP graceful restart no longer sends End-of-RIB prematurely (RFC 4724).
+  - I95-64250 BGP routes received from peers but not installed in the RIB.
+  - I95-63965 SNMP MIB walks on subinterfaces reported incorrect statistics.
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+- version: 7.1.5-7r2
+  date: '2026-04-30'
+  breaking: false
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+- version: 7.1.4-3r2
+  date: '2026-03-17'
+  breaking: false
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+- version: 7.1.3-29r2
+  date: '2026-03-10'
+  breaking: false
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+- version: 7.1.0-50r1
+  date: '2025-12-04'
+  breaking: false
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+api_change_note: >-
+  The release notes are product release notes, not API release notes. They record no separate
+  versioning or deprecation timeline for the /api/v1 REST surface, and the /api/v1 prefix has
+  been stable across every stream captured here.

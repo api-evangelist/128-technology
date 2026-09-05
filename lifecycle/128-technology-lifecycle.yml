@@ -1,0 +1,99 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.128technology.com/docs/about_releases
+versioning:
+  scheme: semantic-versioning-with-milestone
+  format: name-X.Y.Z-build-milestone
+  current: 7.2.1-1r1
+  api_versioning: uri-path
+  api_current: v1
+  api_note: >-
+    The REST surface is versioned in the URI path (/api/v1). It has carried the v1 prefix across
+    every release stream documented, and no v2 or deprecation timeline for it is published.
+  docs: https://docs.128technology.com/docs/about_releases
+release_model:
+  cadence: A new release stream every 6 months.
+  milestones:
+  - id: r1
+    name: Release Candidate 1
+    description: Initial feature release; first version of every major.minor stream.
+  - id: r2
+    name: Release Candidate 2
+    description: Additional features, released 3 months after R1.
+  - id: sts
+    name: Standard Term Support
+    description: Supported for 9 months from the STS designation date.
+  - id: lts
+    name: Long Term Support
+    description: Supported for 24 months from the LTS designation date.
+  designation_note: >-
+    STS or LTS is assigned 3 months after R2 and the designations alternate between streams.
+    Support timelines start from the designation date, not the initial release date.
+  patch_policy: >-
+    Patch releases may occur between R1 and R2. Once R2 ships, customers should move to R2 to
+    keep receiving fixes on that stream. Issues resolved in a release merge forward both
+    chronologically and lexicographically.
+deprecation:
+  policy_url: https://support.juniper.net/support/eol/software/ssr/
+  policy_pdf: https://support.juniper.net/support/pdf/eol/juniper-networks-end-of-life-policy-procedure.pdf
+  docs: https://docs.128technology.com/docs/about_support_policy
+  sunset_header: false
+  sunset_header_note: >-
+    No RFC 8594 Sunset or Deprecation response header is documented for the REST API. Lifecycle
+    is announced as product EOL milestones on the Juniper Session Smart Router Dates & Milestones
+    page, not in the HTTP response.
+  terms:
+  - id: EoE
+    name: End of Engineering support
+    description: Patches are no longer produced after this date.
+  - id: EoS
+    name: End of Support
+    description: 6 months after EoE. Release is EOL and TAC cannot support it unless upgraded.
+  published_milestones: true
+  evidence:
+    url: https://support.juniper.net/support/eol/software/ssr/
+    http_status: 200
+    title: Session Smart Router Dates & Milestones - Juniper Networks
+    fetched: '2026-09-05'
+supported_streams:
+- {version: '7.2', support: LTS, end_of_engineering: '2029-01-01', end_of_support: '2029-07-01'}
+- {version: '7.1', support: STS, end_of_engineering: '2027-03-10', end_of_support: '2027-09-10'}
+- {version: '7.0', support: LTS, end_of_engineering: '2028-08-24', end_of_support: '2029-02-24'}
+- {version: '6.3', support: STS, end_of_engineering: '2026-05-06', end_of_support: '2026-11-06'}
+- {version: '6.2', support: LTS, end_of_engineering: '2026-09-06', end_of_support: '2027-03-06'}
+out_of_support_streams:
+- {version: '6.1', released: '2023-04-14', end_of_support: '2026-03-22'}
+- {version: '6.0', released: '2022-07-18', end_of_support: '2023-11-30'}
+- {version: '5.6', released: '2023-03-16', end_of_support: '2024-12-16'}
+- {version: '5.5', released: '2022-08-11', end_of_support: '2024-05-19'}
+- {version: '5.4', released: '2022-02-18', end_of_support: '2023-06-18'}
+- {version: '5.3', released: '2021-08-06', end_of_support: '2022-08-06'}
+- {version: '5.2', released: '2021-05-10', end_of_support: '2022-05-10'}
+- {version: '5.1', released: '2021-05-17', end_of_support: '2023-02-24'}
+- {version: '5.0', released: '2020-12-18', end_of_support: '2021-12-18'}
+- {version: '4.5', released: '2020-07-23', end_of_support: '2021-10-15'}
+- {version: '4.4', released: '2020-05-19', end_of_support: '2021-09-19'}
+- {version: '4.3', released: '2020-02-08', end_of_support: '2021-09-26'}
+- {version: '4.2', released: '2019-11-21', end_of_support: '2021-04-08'}
+- {version: '4.1', released: '2019-02-07', end_of_support: '2021-01-08'}
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No SLA or uptime target applies. The SSR and Conductor are software the customer deploys and
+    operates; there is no vendor-hosted API service to carry an availability commitment.
+status_page: null
+status_page_note: >-
+  No status page exists and none would be meaningful — the API is served by the customer's own
+  router or conductor, not by a vendor endpoint. No StatusPage pointer is emitted.
+support:
+  policy: https://docs.128technology.com/docs/about_support_policy
+  channel: https://support.juniper.net/support/
+  knowledge_base: https://docs.128technology.com/kb
+  environment_modification_note: >-
+    SSR support agreements do not cover changes customers make to the underlying enterprise
+    Linux environment; such changes are not guaranteed to survive a software upgrade.
+deprecated_operations: []
+deprecated_operations_note: >-
+  Cannot be derived — no OpenAPI is published for the /api/v1 surface, so no operation-level
+  deprecated flags are available.

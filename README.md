@@ -64,5 +64,23 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-128 Technology is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/128-technology_stock/
+128 Technology is the Burlington, Massachusetts networking company behind the Session Smart
+Networking platform — a software-defined, session-aware IP routing and network services stack
+built on Secure Vector Routing (SVR), a tunnel-free routing protocol. The platform pairs the
+Session Smart Router (SSR) with the Session Smart Conductor, a centralized management, policy
+and provisioning engine. Juniper Networks acquired 128 Technology in 2020, but the developer
+surface still carries the 128 Technology identity: product documentation is served from
+docs.128technology.com and the open-source YANG/NETCONF libraries are published under the
+github.com/128technology organization and the @128technology npm scope.
+
+The SSR exposes a YANG-modeled configuration and state tree over a REST API (`/api/v1`), a
+GraphQL API, and NETCONF. All three are served by the customer's own deployed router or
+conductor rather than by a vendor-hosted endpoint, and the interactive Swagger and GraphQL
+references live on that instance at `/documentation/swagger` and `/documentation/graphql`. As of
+2026-09-05 no OpenAPI, GraphQL SDL, AsyncAPI or Postman collection is published at any public
+URL — this is a documented, shipping API without a published machine-readable contract.
+
+- Documentation: https://docs.128technology.com/
+- API reference: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- Product: https://www.juniper.net/us/en/products/routers/session-smart-router.html
+- GitHub: https://github.com/128technology

@@ -1,0 +1,91 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://docs.128technology.com/docs/events_overview,
+  https://docs.128technology.com/docs/concepts_monitoring
+spec_type: none
+asyncapi_published: false
+webhooks_published: false
+pointer_note: >-
+  NO AsyncAPI and NO Webhooks pointer is emitted in apis.yml. The SSR has a genuine event
+  surface, but it is neither described by an AsyncAPI document nor delivered as HTTP callbacks
+  to a subscriber-registered URL. Events are pulled from the router (REST/GraphQL) or pushed by
+  an agent that the operator configures on the device into their own Kafka, syslog or InfluxDB
+  sink. Recording it here keeps the surface visible without crediting the provider with a
+  standard event contract it does not publish.
+event_model:
+  concepts:
+  - name: event
+    description: An occurrence at a specific point in time. Not persistent.
+  - name: alarm
+    description: >-
+      A stateful indication that the system is in a condition that may require intervention. An
+      alarm is normally associated with two events — an ADD when it is raised and a CLEAR when
+      it goes away.
+  fields:
+  - name: dateTime
+    description: When the event occurred, ISO 8601.
+  - name: node
+    description: The system within the SSR that produced the event.
+  - name: process
+    description: The process within the node that produced the event.
+  - name: source
+    description: The entity that originated the alarm (e.g. the network-interface name).
+  - name: category
+    description: The alarm type; each category has its own message format.
+  - name: severity
+    description: One of critical, major, minor, info.
+  - name: message
+    description: Descriptive text.
+  categories:
+  - {id: system, description: 'System-level: CPU, memory and similar.'}
+  - {id: process, description: An internal software process.}
+  - {id: interface, description: An interface on the SSR (up, down, and so on).}
+  - {id: network-interface, description: A network interface on the SSR.}
+  - {id: platform, description: 'Low-level events not derived from the machine, e.g. security keys.'}
+  - {id: peer, description: Connectivity between SSR routers.}
+  - {id: platform-state, description: Sourced from the stats infrastructure.}
+  - {id: redundancy, description: 'High-availability behaviour, e.g. failover or leadership change.'}
+  - {id: giid, description: An interface that is part of a redundant pair.}
+  - {id: asset, description: An alarm sourced by a managed node, derived from Automated Provisioner.}
+  severities:
+  - {id: critical, description: The condition affects service.}
+  - {id: major, description: Immediate action is required.}
+  - {id: minor, description: Minor warning conditions.}
+  - {id: info, description: 'No action is required. Default level, shows all alarms.'}
+  docs: https://docs.128technology.com/docs/events_overview
+delivery:
+  pull:
+  - mechanism: REST / GraphQL query from the conductor
+    note: >-
+      The historical monitoring mechanism. The docs state that at scale this becomes inefficient
+      and a conductor performance problem, which is the stated reason the push agent exists.
+  - mechanism: PCLI
+    commands: [show alarms, show events alarm]
+  push:
+  - mechanism: SSR Monitoring Agent
+    description: >-
+      A Telegraf-based agent running on every SSR node that collects from configured inputs and
+      pushes to configured outputs. Inputs include an Event Collector, a Metric Collector, a
+      Device Interface State Collector, a Peer Path State Collector, an ARP State Collector, an
+      LTE Collector, a Top Analytics Collector and a GraphQL Collector. Inputs and outputs are
+      composable, with per-input include-outputs / exclude-outputs lists.
+    outputs:
+    - {id: kafka, description: 'Kafka broker producer; config at /var/lib/128t-monitoring/outputs/kafka.conf.'}
+    - {id: syslog, description: Syslog output.}
+    - {id: file, description: Local filesystem output.}
+    - {id: telegraf-plugins, description: Any Telegraf output plugin, inherited from the Telegraf stack.}
+    data_format: InfluxDB line protocol
+    cli: monitoring-agent-cli
+    docs: https://docs.128technology.com/docs/concepts_monitoring
+  - mechanism: SNMP traps / MIBs
+    docs: https://docs.128technology.com/docs/config_snmp
+  - mechanism: Syslog over TLS
+    docs: https://docs.128technology.com/docs/config_syslog_tls
+gap: >-
+  There is no published channel/message schema for these events in any machine-readable form.
+  The set of event types, and the message format per category, are only enumerable from the
+  running system or from the Swagger reference served by a deployed instance. An AsyncAPI 3.x
+  document describing the Kafka/syslog event stream would be the single highest-value spec this
+  provider could publish, because the event model is already fully structured and documented in
+  prose.

@@ -1,23 +1,145 @@
 aid: 128-technology
 name: 128 Technology
-description: '128 Technology is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  128 Technology is the Burlington, Massachusetts networking company behind the Session Smart
+  Networking platform — a 100% software-defined, session-aware IP routing and network services
+  stack built on Secure Vector Routing (SVR), a tunnel-free routing protocol. The platform pairs
+  the Session Smart Router (SSR) data/control plane with the Session Smart Conductor, a
+  centralized management, policy and provisioning engine. Juniper Networks acquired 128
+  Technology in 2020 for $450M and the product line now ships as the Juniper Session Smart
+  Router, but 128 Technology remains the operating identity of the developer surface: the
+  product documentation is still served from docs.128technology.com and the open-source
+  libraries are still published under the github.com/128technology organization and the
+  @128technology npm scope. The SSR exposes a YANG-modeled configuration and state tree over a
+  REST API (/api/v1), a GraphQL API, and NETCONF — all served by the customer's own deployed
+  router or conductor rather than from a vendor-hosted cloud endpoint.
 url: https://raw.githubusercontent.com/api-evangelist/128-technology/refs/heads/main/apis.yml
+image: https://avatars.githubusercontent.com/u/13588912?v=4
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-05'
 modified: '2026-09-05'
 tags:
 - Company
-apis: []
+- Networking
+- SD-WAN
+- Routing
+- Network Management
+- Session Smart Networking
+- NETCONF
+- YANG
+- Telecommunications
+- Infrastructure
+apis:
+- aid: 128-technology-ssr-api
+  name: Session Smart Router REST and GraphQL API
+  description: >-
+    The northbound API of the Juniper Session Smart Router (SSR) and Session Smart Conductor.
+    A YANG-modeled configuration and state tree is exposed over a REST API rooted at /api/v1,
+    an equivalent GraphQL API, and NETCONF. Tokens are issued by POST /api/v1/login in exchange
+    for a username and password and presented as an Authorization: Bearer JWT on every
+    subsequent call; the caller's RBAC role (config-read, config-write, provisioning) and
+    resource groups determine what the token can reach. The API is served by the customer's own
+    deployed SSR or Conductor instance, so the base URL is the address of that instance; the
+    interactive Swagger and GraphQL references are served from the same instance at
+    /documentation/swagger and /documentation/graphql.
+  humanURL: https://docs.128technology.com/docs/intro_rest_graphql_apis
+  baseURL: https://{ssr-address}/api/v1
+  image: https://avatars.githubusercontent.com/u/13588912?v=4
+  tags:
+  - Networking
+  - SD-WAN
+  - Network Management
+  - Routing
+  - NETCONF
+  properties:
+  - type: Documentation
+    url: https://docs.128technology.com/docs/intro_rest_graphql_apis
+  - type: APIReference
+    url: https://docs.128technology.com/docs/intro_rest_graphql_apis
+  - type: Authentication
+    url: authentication/128-technology-authentication.yml
+  - type: Conventions
+    url: conventions/128-technology-conventions.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/128-technology-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/128-technology_stock/
+  url: https://www.juniper.net/us/en/products/routers/session-smart-router.html
+- type: DeveloperPortal
+  url: https://docs.128technology.com/
+- type: Documentation
+  url: https://docs.128technology.com/
+- type: APIReference
+  url: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- type: GettingStarted
+  url: https://docs.128technology.com/docs/intro_installation_overview
+- type: Support
+  url: https://docs.128technology.com/kb
+- type: GitHubOrganization
+  url: https://github.com/128technology
+- type: ChangeLog
+  url: https://docs.128technology.com/docs/release_notes_128t_7.2
+- type: Deprecation
+  url: https://support.juniper.net/support/eol/software/ssr/
+- type: Compliance
+  url: https://docs.128technology.com/docs/cc_fips_intro
+- type: Packages
+  url: packages/128-technology-packages.yml
+- type: SDKs
+  url: packages/128-technology-packages.yml
+- type: Authentication
+  url: authentication/128-technology-authentication.yml
+- type: Conventions
+  url: conventions/128-technology-conventions.yml
+- type: Lifecycle
+  url: lifecycle/128-technology-lifecycle.yml
+- type: ChangeLog
+  url: changelog/128-technology-changelog.yml
+- type: Conformance
+  url: conformance/128-technology-conformance.yml
+- type: CLI
+  url: cli/128-technology-cli.yml
+- type: Plans
+  url: plans/128-technology-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/128-technology-rate-limits.yml
+- type: LLMsTxt
+  url: llms/128-technology-llms.txt
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 13
+  pass: local-v3
+x-contract:
+  openapi_published: false
+  graphql_sdl_published: false
+  asyncapi_published: false
+  postman_published: false
+  note: >-
+    Contract discovery (2026-09-05) found no machine-readable contract at any public URL. The
+    SSR DOES generate a Swagger reference and a GraphQL explorer, but both are served by the
+    customer's own deployed router or conductor at https://<SSR address>/documentation/swagger
+    and /documentation/graphql. Probes: docs.128technology.com returned an honest 404 for
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /redoc, /graphql,
+    /apis.json and /llms.txt; GitHub code search across all 62 repositories of the
+    github.com/128technology organization returned 0 results for "openapi" and no spec file in
+    any tree; the only "swagger" hits are prose in the docs repository. There is no
+    vendor-hosted API host to probe. This is a real, documented, currently-shipping API with no
+    published contract, not an absent API.
+  probed:
+  - {url: 'https://docs.128technology.com/openapi.json', status: 404}
+  - {url: 'https://docs.128technology.com/swagger.json', status: 404}
+  - {url: 'https://docs.128technology.com/graphql', status: 404}
+  - {url: 'https://docs.128technology.com/apis.json', status: 404}
+  - {url: 'https://docs.128technology.com/llms.txt', status: 404}
+  - {url: 'https://docs.128technology.com/docs/intro_rest_graphql_apis', status: 200}
+x-parent: juniper
+x-relationship: acquisition
+x-acquired: 2020

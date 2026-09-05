@@ -1,0 +1,25 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  No API rate limits are published. The SSR REST and GraphQL APIs are served by the customer's
+  own router or conductor, so there is no vendor-imposed quota to document and no
+  X-RateLimit-*/RateLimit-*/Retry-After header behaviour is described anywhere in the
+  documentation. The docs do warn about a related but different concern: the conductor polls
+  routers over REST/GraphQL for monitoring, and at scale that becomes a conductor performance
+  problem, which is the stated reason the push-based Monitoring Agent exists. That is a capacity
+  caution, not a rate limit, and is not recorded as one here.
+searched:
+- url: https://docs.128technology.com/docs/intro_rest_graphql_apis
+  status: 200
+  result: no rate-limit section
+- url: https://docs.128technology.com/docs/concepts_monitoring
+  status: 200
+  result: conductor polling scale caution only, no published limit
+unrelated_feature_note: >-
+  `configure ... rate-limiting` in the SSR configuration tree is traffic policing on forwarded
+  network sessions, not an API request quota. Do not conflate the two.

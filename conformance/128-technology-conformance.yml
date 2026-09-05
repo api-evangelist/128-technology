@@ -1,0 +1,151 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  https://docs.128technology.com/docs/intro_rest_graphql_apis,
+  https://docs.128technology.com/docs/cc_fips_intro,
+  https://docs.128technology.com/docs/cc_fips_compliance_guidelines,
+  https://docs.128technology.com/docs/concepts_monitoring
+note: >-
+  Asserted from the provider's own documentation. No OpenAPI is published, so nothing here is
+  derived from a machine-readable contract; every entry cites the docs page that states it.
+standards:
+- id: netconf-rfc6241
+  name: NETCONF (RFC 6241)
+  conforms: true
+  evidence: >-
+    The SSR exposes its configuration and state over NETCONF alongside REST and GraphQL; the
+    company publishes a NETCONF client (@128technology/netconfetti) and NETCONF utilities
+    (github.com/128technology/python-netconf-utilities) against it.
+  source: https://github.com/128technology/netconfetti
+- id: yang-rfc7950
+  name: YANG data modeling language (RFC 7950 / RFC 6020)
+  conforms: true
+  evidence: >-
+    The entire SSR configuration and state tree is YANG-modeled. The company publishes
+    yinsolidated (PyPI + GitHub), yinz and yinz-json to consume the YIN representation of that
+    model, and a fork of pyang.
+  source: https://pypi.org/project/yinsolidated/
+- id: graphql
+  name: GraphQL
+  conforms: true
+  evidence: >-
+    A GraphQL API is offered as an alternative to REST, documented with an interactive explorer
+    served from the deployed instance at https://<SSR address>/documentation/graphql.
+  source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- id: rest-json
+  name: REST over HTTP with JSON payloads
+  conforms: true
+  evidence: >-
+    Documented as standard HTTP verbs against resources under /api/v1 with
+    Content-Type application/json.
+  source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- id: jwt-rfc7519
+  name: JSON Web Token (RFC 7519)
+  conforms: true
+  evidence: >-
+    POST /api/v1/login returns an RS256-signed JWT carrying name, roles, scopes and capabilities
+    claims; it is presented as an RFC 6750 Bearer credential.
+  source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- id: bearer-token-rfc6750
+  name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+  conforms: partial
+  evidence: >-
+    The Authorization: Bearer <token> presentation form is used, but the token is minted by a
+    username/password login endpoint, not by an OAuth 2.0 authorization server. There is no
+    /token endpoint, no client credentials, and no scope negotiation.
+  source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: No OAuth authorization server, client registration, or grant flow is documented.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: >-
+    Not offered for the API. The SSR does support external LDAP and RADIUS for user
+    authentication (config_ldap, config_radius, config_radsec), but not OIDC.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: unknown
+  evidence: >-
+    Cannot be established. No error reference is published and no OpenAPI exists to inspect for
+    application/problem+json responses; the Swagger reference is served only from a deployed
+    instance.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: >-
+    No AsyncAPI document is published. An event surface exists (see asyncapi/) but it is
+    delivered by a push agent to Kafka/syslog/InfluxDB sinks, not described by a spec.
+- id: snmp
+  name: SNMP
+  conforms: true
+  evidence: >-
+    The SSR exposes MIBs and supports user-defined SNMP metrics; SNMP configuration and
+    troubleshooting are documented.
+  source: https://docs.128technology.com/docs/config_snmp
+- id: syslog-tls
+  name: Syslog over TLS (RFC 5425)
+  conforms: true
+  evidence: TLS-protected syslog export is a documented configuration.
+  source: https://docs.128technology.com/docs/config_syslog_tls
+- id: bgp-rfc4724
+  name: BGP Graceful Restart (RFC 4724)
+  conforms: true
+  evidence: >-
+    Release 7.1.6 records a fix bringing End-of-RIB marker behaviour into line with RFC 4724.
+  source: https://docs.128technology.com/docs/release_notes_128t_7.1
+domain_standards:
+- id: netconf-yang-network-management
+  name: NETCONF/YANG network configuration management
+  market: Network element configuration and management
+  conforms: true
+  declared_in: >-
+    The product's own data model. The SSR's configuration and state tree is authored in YANG and
+    served over NETCONF, and the company open-sources the YIN/YANG toolchain it uses to do so
+    (yinsolidated, yinz, yinz-json, a pyang fork, netconfetti, python-netconf-utilities).
+  evidence: https://github.com/128technology/yinsolidated
+  why_it_matters: >-
+    NETCONF/YANG is the interoperability standard for programmatic network-element configuration.
+    An operator whose orchestration stack already speaks NETCONF/YANG can drive the SSR with the
+    tooling it has; the REST and GraphQL surfaces are projections of the same YANG tree, so the
+    model is the contract even though no OpenAPI is published.
+certifications:
+- id: common-criteria
+  name: Common Criteria (CCRA)
+  status: certified
+  scope: >-
+    Juniper SSR software v6.2.5-5r2 on SSR 120, 130, 1200, 1300, 1400 and 1500 appliances,
+    deployed per the SSR Common Criteria Installation and User Guide V1.0.
+  conditions:
+  - FIPS mode must be enabled during installation.
+  - >-
+    Except during installation, all configuration must be performed from the CLI; the GUI is not
+    part of the approved use case (the Conductor GUI is acceptable for the router OTP Quickstart
+    file).
+  - Administration is Common Criteria-certified only when performed through the CLI.
+  - Management over forwarding interfaces is non-compliant; SSH management must use non-forwarding interfaces.
+  docs: https://docs.128technology.com/docs/cc_fips_intro
+  external: https://www.commoncriteriaportal.org/
+- id: fips-140-2
+  name: FIPS 140-2
+  status: certified-components
+  scope: >-
+    SSH for remote administration on port 22 using OpenSSH v7.4 and OpenSSL v1.0.2k, certified
+    for FIPS 140-2 compliance. SSR400/SSR440 EEPROM migrated to a FIPS-compliant encryption
+    scheme in 7.2.0.
+  docs: https://docs.128technology.com/docs/cc_fips_compliance_guidelines
+- id: cavp
+  name: NIST Cryptographic Algorithm Validation Program
+  status: validated
+  validations:
+  - id: '37481'
+    url: https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=37481
+  - id: '37482'
+    url: https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=37482
+  - id: '37469'
+    url: https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=37469
+  scope: >-
+    Cryptographic algorithm implementations, validated only when running on the Juniper hardware
+    platforms listed in the Common Criteria guide.
+  docs: https://docs.128technology.com/docs/cc_fips_compliance_guidelines

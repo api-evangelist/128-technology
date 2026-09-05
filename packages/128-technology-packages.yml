@@ -1,0 +1,149 @@
+generated: '2026-09-05'
+method: searched
+source: >-
+  registry.npmjs.org search + package metadata for the @128technology npm scope; pypi.org/pypi
+  JSON for yinsolidated; github.com/128technology repository listing
+note: >-
+  128 Technology publishes no REST/GraphQL client SDK. The first-party libraries it does ship
+  are the building blocks of the SSR's own management surface — YIN/YANG data-model handling
+  (yinz, yinz-json, yinsolidated), a NETCONF client (netconfetti), and the GUI component
+  libraries. All @128technology-scoped npm packages and the PyPI yinsolidated package are
+  published by the company itself, which is why they are marked official. Versions and dates
+  are read from the registry metadata endpoints on the date above; the whole set is dormant,
+  with the newest release in 2022, which is itself the finding.
+packages:
+- language: javascript
+  registry: npm
+  name: '@128technology/yinz'
+  url: https://www.npmjs.com/package/@128technology/yinz
+  install: npm install @128technology/yinz
+  official: true
+  version: 4.5.6
+  published: '2021-08-10'
+  description: A module for ingesting a YIN datamodel and handling instance data.
+  source_code: https://github.com/128technology/yinz
+- language: javascript
+  registry: npm
+  name: '@128technology/yinz-json'
+  url: https://www.npmjs.com/package/@128technology/yinz-json
+  install: npm install @128technology/yinz-json
+  official: true
+  version: 6.1.0
+  published: '2022-09-02'
+  description: YIN datamodel ingestion and instance-data handling, optimized for JSON only.
+  source_code: https://github.com/128technology/yinz-json
+- language: javascript
+  registry: npm
+  name: '@128technology/netconfetti'
+  url: https://www.npmjs.com/package/@128technology/netconfetti
+  install: npm install @128technology/netconfetti
+  official: true
+  version: 1.0.2
+  published: '2018-08-24'
+  description: A JavaScript NETCONF client — the closest thing to a first-party API client library.
+  source_code: https://github.com/128technology/netconfetti
+- language: javascript
+  registry: npm
+  name: '@128technology/ply'
+  url: https://www.npmjs.com/package/@128technology/ply
+  install: npm install @128technology/ply
+  official: true
+  version: 0.5.4
+  published: '2021-08-10'
+  description: Presentation Language for Yinz — model files describing GUI presentation of a Yinz data model.
+  source_code: https://github.com/128technology/ply
+- language: javascript
+  registry: npm
+  name: '@128technology/ply-json'
+  url: https://www.npmjs.com/package/@128technology/ply-json
+  install: npm install @128technology/ply-json
+  official: true
+  version: 2.1.0-alpha.0
+  published: '2021-07-13'
+  description: Presentation Language for Yinz, optimized for JSON only. Last release is a prerelease.
+  source_code: https://github.com/128technology/ply-json
+- language: javascript
+  registry: npm
+  name: '@128technology/ui'
+  url: https://www.npmjs.com/package/@128technology/ui
+  install: npm install @128technology/ui
+  official: true
+  version: 0.10.3
+  published: '2021-10-26'
+  description: UI component library for the 128T application.
+  source_code: https://github.com/128technology/128-ui
+- language: javascript
+  registry: npm
+  name: '@128technology/icons'
+  url: https://www.npmjs.com/package/@128technology/icons
+  install: npm install @128technology/icons
+  official: true
+  version: 1.5.0
+  published: '2021-01-08'
+  description: Icon font for the 128T product.
+  source_code: https://github.com/128technology/128t-icons
+- language: javascript
+  registry: npm
+  name: '@128technology/codemirror-liquid-mode'
+  url: https://www.npmjs.com/package/@128technology/codemirror-liquid-mode
+  install: npm install @128technology/codemirror-liquid-mode
+  official: true
+  version: 1.0.2
+  published: '2020-02-05'
+  description: A CodeMirror mode for the Liquid template language, used by SSR configuration templates.
+  source_code: https://github.com/128technology/codemirror_liquid_mode
+- language: javascript
+  registry: npm
+  name: '@128technology/mui-virtualized-table'
+  url: https://www.npmjs.com/package/@128technology/mui-virtualized-table
+  install: npm install @128technology/mui-virtualized-table
+  official: true
+  version: 3.0.0-7
+  published: '2021-01-14'
+  description: Virtualized Material-UI table (fork maintained under the company scope).
+  source_code: https://github.com/128technology/mui-virtualized-table
+- language: python
+  registry: pypi
+  name: yinsolidated
+  url: https://pypi.org/project/yinsolidated/
+  install: pip install yinsolidated
+  official: true
+  version: 1.3.0
+  published: '2019-07-11'
+  description: >-
+    Generates and parses a YIN-like representation of a YANG model consolidated into a single
+    XML file. Home page on PyPI points at github.com/128technology/yinsolidated.
+  source_code: https://github.com/128technology/yinsolidated
+- language: python
+  registry: null
+  name: python-netconf-utilities
+  url: https://github.com/128technology/python-netconf-utilities
+  install: pip install git+https://github.com/128technology/python-netconf-utilities
+  official: true
+  version: null
+  published: null
+  note: >-
+    Carries a setup.py but was never published to PyPI (pypi.org/pypi/python-netconf-utilities/json
+    returns 404), so there is no registry metadata endpoint to read a version from. Install is
+    from git only.
+third_party:
+- language: javascript
+  registry: npm
+  name: '@itentialopensource/adapter-128technology'
+  url: https://www.npmjs.com/package/@itentialopensource/adapter-128technology
+  official: false
+  version: 1.0.10
+  published: '2026-08-31'
+  note: >-
+    Itential's open-source adapter for the 128 Technology API. NOT first-party — published by
+    Itential, not by 128 Technology — but it is the only actively-maintained client library for
+    this API on any registry, and its release date post-dates every first-party package by four
+    years.
+summary:
+  official_count: 11
+  registries: [npm, pypi]
+  newest_official_release: '2022-09-02'
+  rest_client_sdk: false
+  rest_client_sdk_note: >-
+    No first-party SDK wraps the /api/v1 REST or GraphQL surface in any language. The published
+    libraries cover the YANG data model and NETCONF transport only.

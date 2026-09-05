@@ -1,0 +1,85 @@
+generated: '2026-09-05'
+method: searched
+source: https://docs.128technology.com/docs/intro_rest_graphql_apis
+docs: https://docs.128technology.com/docs/intro_rest_graphql_apis
+note: >-
+  Derived from the provider's own published API documentation, not from an OpenAPI document.
+  128 Technology publishes no OpenAPI: the SSR serves an interactive Swagger reference from the
+  deployed instance itself (https://<SSR address>/documentation/swagger), reachable only from a
+  customer's own router or conductor, so no securityScheme block could be harvested.
+summary:
+  types:
+  - http
+  api_key_in: []
+  oauth2_flows: []
+  model: bearer-jwt-from-password-login
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  in: header
+  parameter: Authorization
+  description: >-
+    Every REST and GraphQL call carries an Authorization header of the form
+    "Bearer <token>". The token is an RS256-signed JWT issued by the SSR itself and carries the
+    caller's name, roles, scopes and capabilities as claims.
+  sources:
+  - https://docs.128technology.com/docs/intro_rest_graphql_apis
+token_issuance:
+  operation: POST /api/v1/login
+  content_type: application/json
+  request_fields:
+  - username
+  - password
+  response_field: token
+  token_type: JWT (RS256)
+  docs: https://docs.128technology.com/docs/intro_rest_graphql_apis
+  note: >-
+    Credentials are the SSR local user account. There is no OAuth authorization server, no
+    client_id/client_secret exchange, and no refresh-token flow documented.
+authorization:
+  model: RBAC
+  docs: https://docs.128technology.com/docs/config_RBAC
+  description: >-
+    Access Management Roles carry capabilities and are bound to Resource Groups, which are in
+    turn assigned to Authority-level resources (routers, tenants, services, service-policies).
+    The RBAC privileges of the authenticated user determine which resources an API call can
+    reach; a role may additionally exclude named resources, which are then hidden from that
+    user's view entirely.
+  capabilities:
+  - name: config-read
+    description: Read the configuration tree.
+  - name: config-write
+    description: Modify and commit configuration.
+  - name: provisioning
+    description: >-
+      Software lifecycle management — download software, upgrade existing installations.
+  built_in_roles:
+  - name: admin
+    description: Default administrator role; has access to all configuration options and cannot be removed.
+  jwt_claims_observed:
+  - name
+  - roles
+  - scopes
+  - capabilities
+  - application
+  - userAgent
+  - iss
+  - iat
+  jwt_claim_note: >-
+    Claim names read from the example decoded token published in the REST/GraphQL API
+    documentation; scopes observed there were "configure" and "show-commands", capabilities
+    "config-read", "config-write" and "provisioning". No published scope reference page exists,
+    so scopes/ was not written.
+other_interfaces:
+- interface: NETCONF
+  auth: SSH transport (password or public-key), per RFC 6242
+  note: The SSR also exposes its YANG data model over NETCONF alongside REST and GraphQL.
+- interface: SSH / PCLI
+  auth: Local username+password or public-key authentication using keys in the local filesystem
+  source: https://docs.128technology.com/docs/cc_fips_intro
+transport_note: >-
+  The documented curl examples pass -k (skip TLS verification) because a factory SSR presents a
+  self-signed webserver certificate; the SSR supports replacing it with a CA-signed certificate
+  (see https://docs.128technology.com/docs/config_webserver_certs).

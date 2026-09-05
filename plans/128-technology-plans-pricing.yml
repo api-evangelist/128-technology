@@ -1,0 +1,28 @@
+generated: '2026-09-05'
+method: searched
+source: https://www.juniper.net/us/en/products/routers/session-smart-router.html
+plan_count: 0
+plans: []
+model: enterprise-quote
+note: >-
+  128 Technology publishes no self-serve plans or list prices. The Session Smart Router is sold
+  as licensed software and appliances through Juniper Networks (now HPE Networking) sales and
+  channel partners; the product pages route to "Contact Sales" and to partner quoting rather
+  than to a pricing table. There is no API pricing surface at all: the REST and GraphQL APIs are
+  a feature of software the customer has already licensed and deployed, not a metered product
+  with its own tiers. Bring-Your-Own-License images are offered on AWS, Azure and GCP, where the
+  cloud marketplace listing carries the commercial terms rather than the vendor's own site.
+searched:
+- url: https://www.juniper.net/us/en/products/routers/session-smart-router.html
+  status: 200
+  result: no published pricing or plan tiers
+- url: https://docs.128technology.com/
+  status: 200
+  result: documentation only, no commercial terms
+byol_channels:
+- platform: AWS
+  docs: https://docs.128technology.com/docs/intro_installation_byol_aws_conductor
+- platform: Azure
+  docs: https://docs.128technology.com/docs/intro_installation_byol_azure_conductor
+- platform: GCP
+  docs: https://docs.128technology.com/docs/intro_installation_byol_gcp_conductor

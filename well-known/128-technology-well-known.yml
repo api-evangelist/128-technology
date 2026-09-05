@@ -1,0 +1,149 @@
+generated: '2026-09-05'
+method: probed
+source: live GET of each named path on each host, 2026-09-05
+note: >-
+  No .well-known document is served on any host this record knows. Two distinct results.
+  (1) docs.128technology.com is a GitHub Pages Docusaurus site that returns an honest HTTP 404
+  with the site's 404 page for every path, including the negative control. (2) 128technology.com
+  and www.128technology.com are a catch-all: the apex presents a TLS certificate that does not
+  cover the name (a normal client cannot connect at all), and when certificate verification is
+  disabled every path 301s to https://www.juniper.net/us/en/solutions/sd-wan.html, which answers
+  200 with the same HTML marketing page — including for
+  /.well-known/128-technology-negative-control-7f3ab91c.json, which cannot exist. Those 200s are
+  therefore recorded as a failed path-echo control and NOT as documents. hit_count is 0 and no
+  WellKnown or SecurityTxt pointer is emitted.
+hit_count: 0
+hosts:
+- host: https://docs.128technology.com
+  role: documentation host (GitHub Pages, Docusaurus)
+  path_echo_control: passed
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/api-catalog.json
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/ucp.json
+    status: 404
+  - path: /.well-known/acp.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/128-technology-negative-control-7f3ab91c.json
+    status: 404
+    control: negative
+- host: https://128technology.com
+  role: legacy corporate domain (invalid TLS certificate; 301s to juniper.net when verification is disabled)
+  path_echo_control: failed
+  soft_404_control:
+    path: /.well-known/128-technology-negative-control-7f3ab91c.json
+    status: 200
+    content_type: text/html;charset=utf-8
+    note: >-
+      Answers 200 with the Juniper SD-WAN marketing HTML for a path that cannot exist, so every
+      200 on this host is discarded.
+  tls_note: >-
+    Certificate presented does not cover 128technology.com; a verifying client fails the
+    handshake outright. All probes below required certificate verification to be disabled.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/openid-configuration
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/api-catalog
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/ucp.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/acp.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/aauth-resource.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/agent-card.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/agent.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/apis.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /apis.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /apis.yml
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+- host: https://www.128technology.com
+  role: legacy corporate www (identical catch-all behaviour to the apex)
+  path_echo_control: failed
+  soft_404_control:
+    path: /.well-known/128-technology-negative-control-7f3ab91c.json
+    status: 200
+    content_type: text/html;charset=utf-8
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/openid-configuration
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/api-catalog
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/agent-card.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/agent.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /.well-known/apis.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+  - path: /apis.json
+    status: 200
+    discarded: soft-404 HTML (path-echo control failed)
+not_probed:
+  reason: >-
+    The API baseURL is the address of a customer-deployed SSR or Conductor
+    (https://{ssr-address}/api/v1). There is no vendor-hosted API host to probe, so no
+    baseURL host appears in hosts[].
